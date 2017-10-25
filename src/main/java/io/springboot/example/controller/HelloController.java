@@ -44,6 +44,12 @@ public class HelloController {
     }
 
 
+    @GetMapping(path = "/helloName", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, params = {"ln"})
+    public ResponseEntity<?> sayHelloName(@RequestParam(value = "ln") String ln, @RequestParam(value = "name") String name) throws JsonProcessingException {
+        Locale locale = new Locale(ln);
+        String message = messageSource.getMessage("message.hello.param", new Object[]{name}, locale);
+        return new ResponseEntity(objectMapper.writeValueAsString(message), HttpStatus.OK);
+    }
 
 
 }
